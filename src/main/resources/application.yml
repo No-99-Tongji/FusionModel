@@ -1,0 +1,15 @@
+server:
+  port: 8081
+
+aigateway:
+  baseurl: http://localhost:8080/chat/completions
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    operations-sorter: alpha
+    tags-sorter: alpha
+  show-actuator: false
