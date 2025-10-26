@@ -1,15 +1,10 @@
-server:
-  port: 8081
-
 aigateway:
   baseurl: http://localhost:8080/chat/completions
+server:
+  address: 0.0.0.0
+  port: 8081
 
-springdoc:
-  api-docs:
-    path: /v3/api-docs
-  swagger-ui:
-    path: /swagger-ui.html
-    enabled: true
-    operations-sorter: alpha
-    tags-sorter: alpha
-  show-actuator: false
+# Swagger配置 - 生产环境部署时，取消下面的注释并设置正确的URL
+swagger:
+  server:
+    url: http://47.100.171.209:8081

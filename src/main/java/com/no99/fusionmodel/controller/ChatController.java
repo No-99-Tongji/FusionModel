@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/chat")
+@CrossOrigin(origins = "*", maxAge = 3600)
 @Tag(name = "AI模型融合", description = "并行调用多个AI模型并智能评分返回最佳回答的API")
 public class ChatController {
 

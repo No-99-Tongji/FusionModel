@@ -1,13 +1,20 @@
-# FusionModel 微服务
+# FusionModel Microservice
 
-这是一个AI模型融合微服务，它可以：
-1. 并行调用doubao和qwen两个AI模型
-2. 使用deepseek模型对两个回答进行评分
-3. 返回评分最高的回答
+## Overview
 
-## 配置
+**FusionModel** is an AI model fusion microservice designed to intelligently combine responses from multiple large language models.
 
-服务运行在8081端口，AI网关配置在application.yml中：
+It can:
+
+1. Call **doubao** and **qwen** models in parallel
+2. Use the **deepseek** model to score both responses
+3. Return the response with the **highest evaluation score**
+
+---
+
+## Configuration
+
+The service runs on **port 8081**, and the AI gateway is configured in the `application.yml` file:
 
 ```yaml
 server:
@@ -17,73 +24,109 @@ aigateway:
   baseurl: http://localhost:8080/chat/completions
 ```
 
-## API文档
+---
 
-### Swagger UI
-启动服务后，访问以下地址查看交互式API文档：
-- **Swagger UI**: http://localhost:8081/swagger-ui.html
-- **OpenAPI规范**: http://localhost:8081/v3/api-docs
+## API Endpoints
 
-Swagger UI提供了完整的API文档，包括：
-- 详细的接口说明
-- 请求参数示例
-- 响应格式说明
-- 在线测试功能
+### 1. Get the Best Response
 
-## API接口
-
-### 获取最佳回答
+**Endpoint:**  
 `POST /api/chat/best-response`
 
-请求体格式：
+**Description:**  
+Sends a chat message to the microservice, which will:
+
+- Send the same query to both **doubao** and **qwen** models
+- Evaluate both results using the **deepseek** model
+- Return the response with the highest score
+
+**Request Example:**
+
 ```json
 {
   "messages": [
     {
       "role": "user",
-      "content": "你好，请介绍一下人工智能的发展历史"
+      "content": "Hello, please introduce the history of artificial intelligence."
     }
   ]
 }
 ```
 
-响应格式：
+**Response Example:**
+
 ```json
 {
   "model": "doubao",
-  "content": "AI模型的回答内容...",
+  "content": "AI originated in the 1950s with the idea of building machines capable of intelligent behavior...",
   "score": 8.5
 }
 ```
 
-### 健康检查
+---
+
+### 2. Health Check
+
+**Endpoint:**  
 `GET /api/chat/health`
 
-## 启动服务
+**Description:**  
+Used to verify that the service is running properly.  
+A typical response might include a simple status message or HTTP 200 OK.
+
+---
+
+## Running the Service
+
+You can start the service using Maven or directly with the generated JAR file.
+
+**Option 1 — Using Maven:**
 
 ```bash
 mvn spring-boot:run
 ```
 
-或者：
+**Option 2 — Using the JAR file:**
 
 ```bash
 java -jar target/FusionModel-0.0.1-SNAPSHOT.jar
 ```
 
-## 测试示例
+---
 
-使用curl测试：
+## Testing Example
+
+You can test the API using `curl`:
 
 ```bash
-curl -X POST http://localhost:8081/api/chat/best-response \
-  -H "Content-Type: application/json" \
-  -d '{
+curl -X POST http://localhost:8081/api/chat/best-response   -H "Content-Type: application/json"   -d '{
     "messages": [
       {
         "role": "user",
-        "content": "什么是机器学习？"
+        "content": "What is machine learning?"
       }
     ]
   }'
 ```
+
+**Expected Response:**
+
+```json
+{
+  "model": "qwen",
+  "content": "Machine learning is a subfield of artificial intelligence that enables systems to learn from data without explicit programming.",
+  "score": 9.2
+}
+```
+
+---
+
+## Notes
+
+- The service currently supports **doubao**, **qwen**, and **deepseek** models.
+- Model selection and scoring logic can be customized in the source code.
+- Make sure the **AI Gateway (port 8080)** is running before starting the FusionModel service.
+
+---
+
+© 2025 FusionModel Project — All rights reserved.
