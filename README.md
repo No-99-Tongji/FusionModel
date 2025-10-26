@@ -12,6 +12,35 @@ It can:
 
 ---
 
+## System Requirements
+
+Before you begin, ensure your system meets the following requirements:
+
+### Required
+- **Java Development Kit (JDK)** - Version 17 or higher
+- **Maven** - Version 3.6.0 or higher
+- **Operating System** - Linux, macOS, or Windows
+- **Memory** - Minimum 4GB RAM
+- **Storage** - At least 1GB free space
+- **Network** - Internet connection for downloading dependencies
+- **Port Availability** - Port 8081 must be free
+
+### Optional but Recommended
+- **IDE** - IntelliJ IDEA, Eclipse, or VS Code with Java extensions
+- **Docker** - Version 20.10.0 or higher (if using containerization)
+- **Git** - Version 2.0 or higher (for version control)
+
+### Development Tools Versions
+```bash
+# Verify your installations with these commands
+java --version        # Should show Java 17 or higher
+mvn --version        # Should show Maven 3.6.0 or higher
+git --version        # Should show Git 2.0 or higher (if using)
+docker --version     # Should show Docker 20.10.0 or higher (if using)
+```
+
+---
+
 ## Configuration
 
 The service runs on **port 8081**, and the AI gateway is configured in the `application.yml` file:
@@ -22,6 +51,56 @@ server:
 
 aigateway:
   baseurl: http://localhost:8080/chat/completions
+```
+
+---
+
+## Dependencies
+
+The project uses the following key dependencies:
+
+- **Spring Boot 3.5.6** - Base framework and web server
+- **Spring WebFlux** - Reactive web support for parallel API calls
+- **Spring Validation** - Request parameter validation
+- **Spring Actuator** - Health checks and monitoring
+- **Lombok** - Reduces boilerplate code
+- **Jackson** - JSON processing
+- **SpringDoc OpenAPI** - API documentation (Swagger UI)
+
+You can find the full dependency list in `pom.xml`:
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-webflux</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+        <version>2.2.0</version>
+    </dependency>
+</dependencies>
 ```
 
 ---
