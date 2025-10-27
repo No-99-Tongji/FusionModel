@@ -1,5 +1,12 @@
 aigateway:
   baseurl: http://localhost:8080/chat/completions
+  models:
+    # 用于并行调用的模型列表
+    generation:
+      - doubao
+      - qwen
+    # 用于评分的模型
+    scorer: deepseek
 server:
   address: 0.0.0.0
   port: 8081
